@@ -36,7 +36,7 @@ This project is a COVID-19 Data analytics system that provides insights into the
 ### Steps
 1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/Riya72-coder/covid-19-analysis-and-dashboard.git
+   git clone https://github.com/Riya72-coder/Covid-19-Data-Analytics-System..git
    ```
 
 2. Navigate to the project directory:
