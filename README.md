@@ -1,10 +1,7 @@
-# COVID-19 Dashboard Project
+# COVID-19 Data Analytics System 
 
 ## Overview
-This project is a COVID-19 Dashboard that provides insights into the pandemic using data visualizations, sentiment 
-analysis, and predictive modeling. It allows users to analyze trends, visualize correlations, and predict COVID-19 cases
-based on input data. Built using Python and Flask, this project showcases interactive graphs and tables to deliver 
-meaningful information about the pandemic.
+This project is a COVID-19 Data analytics system that provides insights into the pandemic using data visualizations, sentiment analysis, and predictive modeling. It allows users to analyze trends, visualize correlations, and predict COVID-19 cases based on input data. Built using Python and Flask, this project showcases interactive graphs and tables to deliver meaningful information about the pandemic.
 
 ## Features
 - **Interactive Dashboard**: Displays line plots, bar charts, heatmaps, and pie charts for COVID-19 data.
