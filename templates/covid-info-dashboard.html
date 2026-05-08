@@ -3,159 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Covid-19 Info</title>
+    <meta name="description" content="COVID-19 Information Centre — learn about the virus, symptoms, and how the India dashboard works.">
+    <title>COVID-19 Info Center | Dashboard</title>
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS Animation CSS -->
+
+    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Hero Section -->
-    <header class="hero-section text-center mb-5">
-        <div class="container" data-aos="fade-down">
-            <h1 class="display-4 fw-bold">Covid-19: Visualising Global Impact</h1>
-            <p class="lead mb-4">An interactive analysis of pandemic trends, recovery trajectories, and viral progression across the globe.</p>
-            <a href="{{ url_for('dashboard') }}" class="btn btn-light btn-lg px-4 fw-bold shadow-sm">Go to Dashboard</a>
+
+    <!-- ========== Navbar ========== -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+                <i class="fa-solid fa-virus-covid"></i>
+                COVID-19 Dashboard
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-1">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}"><i class="fa-solid fa-gauge-high me-1"></i>Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{ url_for('info') }}"><i class="fa-solid fa-circle-info me-1"></i>Info Center</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== Hero Section ========== -->
+    <header class="main-header" style="border-radius: 0; margin-bottom: 0;">
+        <div class="container text-center" data-aos="fade-down">
+            <h1 style="font-size: clamp(1.6rem, 4vw, 2.5rem);">
+                <i class="fa-solid fa-virus-covid"></i> COVID-19: Visualising Global Impact
+            </h1>
+            <p class="subtitle mb-4">An interactive analysis of pandemic trends, recovery trajectories, and viral progression across the globe.</p>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-sm px-4 py-2 fw-semibold" style="background: var(--gradient-blue); color: #fff; border: none; border-radius: 0.5rem; font-size: 0.9rem;">
+                <i class="fa-solid fa-gauge-high me-2"></i>Go to Dashboard
+            </a>
         </div>
     </header>
 
-    <!-- Info Section -->
-    <div class="container mb-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-10" data-aos="fade-up">
-                <div class="card shadow-sm overflow-hidden">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-6">
-                            <div class="card-body p-4">
-                                 <h2 class="section-title">What Exactly is Covid-19?</h2>
-                            <p class="card-text text-muted">
-                                The global COVID-19 pandemic, caused by severe acute respiratory syndrome coronavirus 2 
-                                <a href="https://en.wikipedia.org/wiki/SARS-CoV-2" target="_blank" rel="noopener">(SARS-CoV-2)</a>, began with an outbreak in 
-                                <a href="https://en.wikipedia.org/wiki/Wuhan" target="_blank" rel="noopener">Wuhan</a>, China, in December 2019. 
-                                It spread worldwide in early 2020. The WHO declared it a 
-                                <a href="https://en.wikipedia.org/wiki/Public_health_emergency_of_international_concern" target="_blank" rel="noopener">public health emergency</a> 
-                                on January 30, 2020, and a pandemic on March 11, 2020. The emergency status ended in May 2023.
-                            </p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 p-5">
-                            <img src="{{ url_for('static', filename='images/covid-virus.jpg') }}" alt="Covid-19 Virus" class="img-fluid h-200 w-150 object-fit-cover" data-aos="zoom-in">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="container-fluid py-5" style="max-width: 1200px;">
 
-    <!-- Symptoms Section -->
-    <div class="container mb-5">
-        <div class="text-center mb-4" data-aos="fade-up">
-            <h2 class="section-title">How The Virus Impacts Population?</h2>
+        <!-- ========== What is COVID-19? ========== -->
+        <div class="row g-4 align-items-center mb-5" data-aos="fade-up">
+            <div class="col-md-6">
+                <div class="chart-card h-100">
+                    <h2 style="font-size: 1.4rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem;">
+                        <span style="background: var(--gradient-blue); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                            What Exactly is COVID-19?
+                        </span>
+                    </h2>
+                    <p style="color: var(--text-secondary); line-height: 1.75; font-size: 0.95rem;">
+                        The global COVID-19 pandemic, caused by severe acute respiratory syndrome coronavirus 2
+                        <a href="https://en.wikipedia.org/wiki/SARS-CoV-2" target="_blank" rel="noopener" style="color: var(--accent-blue);">(SARS-CoV-2)</a>,
+                        began with an outbreak in
+                        <a href="https://en.wikipedia.org/wiki/Wuhan" target="_blank" rel="noopener" style="color: var(--accent-blue);">Wuhan</a>, China, in December 2019.
+                        It spread worldwide in early 2020. The WHO declared it a
+                        <a href="https://en.wikipedia.org/wiki/Public_health_emergency_of_international_concern" target="_blank" rel="noopener" style="color: var(--accent-blue);">public health emergency</a>
+                        on January 30, 2020, and a pandemic on March 11, 2020. The emergency status ended in May 2023.
+                    </p>
+                    <div class="d-flex gap-3 mt-3 flex-wrap">
+                        <span class="live-badge" style="background: rgba(79,142,247,0.12); border-color: rgba(79,142,247,0.3); color: var(--accent-blue);">
+                            <i class="fa-solid fa-calendar-days"></i> Declared: Mar 11, 2020
+                        </span>
+                        <span class="live-badge" style="background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3); color: var(--accent-green);">
+                            <i class="fa-solid fa-check-circle"></i> Emergency Ended: May 2023
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 text-center" data-aos="zoom-in">
+                <div class="chart-card p-3">
+                    <img src="{{ url_for('static', filename='images/covid-virus.jpg') }}"
+                         alt="COVID-19 Virus Illustration"
+                         class="img-fluid rounded"
+                         style="max-height: 300px; object-fit: cover; width: 100%; border: 1px solid var(--border-color);">
+                </div>
+            </div>
         </div>
-        <div class="row g-4">
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="card h-100 text-center">
-                    <img src="{{ url_for('static', filename='images/fever.jpg') }}" class="img-fluid rounded mx-auto d-block mt-3" alt="Fever" style="height: 200px; width: auto; max-width: 90%; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">Fever</h5>
-                        <p class="card-text small text-muted">The first and most common symptom is a fever, often accompanied by a flushed appearance and fatigue.</p>
+
+        <!-- ========== Symptoms ========== -->
+        <div class="mb-5">
+            <div class="text-center mb-4" data-aos="fade-up">
+                <p class="section-label justify-content-center" style="justify-content: center;">
+                    <i class="fa-solid fa-stethoscope"></i> Symptoms &amp; Impact
+                </p>
+                <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary);">How The Virus Impacts Population</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="chart-card text-center h-100">
+                        <img src="{{ url_for('static', filename='images/fever.jpg') }}"
+                             class="img-fluid rounded mb-3"
+                             alt="Fever symptom"
+                             style="height: 180px; width: 100%; object-fit: cover; border: 1px solid var(--border-color);">
+                        <div class="kpi-icon-wrapper mx-auto mb-2" style="background: rgba(244,63,94,0.12); color: var(--accent-red);">
+                            <i class="fa-solid fa-temperature-high"></i>
+                        </div>
+                        <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem;">Fever</h5>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6;">
+                            The first and most common symptom is a fever, often accompanied by a flushed appearance and fatigue.
+                        </p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="card h-100 text-center">
-                    <img src="{{ url_for('static', filename='images/cough.jpg') }}" class="img-fluid rounded mx-auto d-block mt-3" alt="Cough" style="height: 200px; width: auto; max-width: 90%; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">Persistent Cough</h5>
-                        <p class="card-text small text-muted">A new and continuous cough. Recommended to cough into your elbow to prevent spreading droplets.</p>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="chart-card text-center h-100">
+                        <img src="{{ url_for('static', filename='images/cough.jpg') }}"
+                             class="img-fluid rounded mb-3"
+                             alt="Persistent cough"
+                             style="height: 180px; width: 100%; object-fit: cover; border: 1px solid var(--border-color);">
+                        <div class="kpi-icon-wrapper mx-auto mb-2" style="background: rgba(245,158,11,0.12); color: var(--accent-yellow);">
+                            <i class="fa-solid fa-lungs-virus"></i>
+                        </div>
+                        <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem;">Persistent Cough</h5>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6;">
+                            A new and continuous cough. Recommended to cough into your elbow to prevent spreading droplets.
+                        </p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="card h-100 text-center">
-                    <img src="{{ url_for('static', filename='images/Anosmia.jpg') }}" class="img-fluid rounded mx-auto d-block mt-3" alt="Anosmia" style="height: 200px; width: auto; max-width: 90%; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">Loss of Smell</h5>
-                        <p class="card-text small text-muted">A sudden loss of the sense of smell (anosmia) or taste (ageusia) is a unique indicator.</p>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="chart-card text-center h-100">
+                        <img src="{{ url_for('static', filename='images/Anosmia.jpg') }}"
+                             class="img-fluid rounded mb-3"
+                             alt="Loss of smell - Anosmia"
+                             style="height: 180px; width: 100%; object-fit: cover; border: 1px solid var(--border-color);">
+                        <div class="kpi-icon-wrapper mx-auto mb-2" style="background: rgba(167,139,250,0.12); color: var(--accent-purple);">
+                            <i class="fa-solid fa-nose"></i>
+                        </div>
+                        <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem;">Loss of Smell</h5>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6;">
+                            A sudden loss of the sense of smell (anosmia) or taste (ageusia) is a unique indicator.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Project Overview & Features -->
-    <div class="container mb-5">
-        <div class="row g-5">
+
+        <!-- ========== Project Overview + Features ========== -->
+        <div class="row g-4 mb-5">
             <!-- Overview -->
             <div class="col-lg-6" data-aos="fade-right">
-                <h3 class="mb-3">Project Overview</h3>
-                <p class="text-muted">This project serves as a comprehensive tool to visualize the massive datasets released by the WHO and JHU. By converting raw CSV data into interactive heatmaps and trend lines, we aim to make the impact of the pandemic understandable for everyone.</p>
-                <h5 class="mt-4">Key Metrics Tracked:</h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fa-solid fa-check text-success me-2"></i> Total Confirmed Cases</li>
-                    <li class="list-group-item"><i class="fa-solid fa-check text-success me-2"></i> Mortality Rates</li>
-                    <li class="list-group-item"><i class="fa-solid fa-check text-success me-2"></i> Recovery Percentages</li>
-                    <li class="list-group-item"><i class="fa-solid fa-check text-success me-2"></i> Daily Growth Trends</li>
-                </ul>
+                <div class="chart-card h-100">
+                    <h3 style="color: var(--text-primary); font-weight: 700; font-size: 1.25rem; margin-bottom: 1rem;">
+                        <i class="fa-solid fa-book-open me-2" style="color: var(--accent-blue);"></i>Project Overview
+                    </h3>
+                    <p style="color: var(--text-secondary); line-height: 1.75; font-size: 0.9rem;">
+                        This project serves as a comprehensive tool to visualize the massive datasets released by the WHO and JHU.
+                        By converting raw CSV data into interactive heatmaps and trend lines, we aim to make the impact of the pandemic understandable for everyone.
+                    </p>
+                    <h6 style="color: var(--text-primary); font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.75rem;">Key Metrics Tracked</h6>
+                    <ul class="list-unstyled" style="color: var(--text-secondary);">
+                        <li class="mb-2"><i class="fa-solid fa-circle-check me-2" style="color: var(--accent-green);"></i>Total Confirmed Cases</li>
+                        <li class="mb-2"><i class="fa-solid fa-circle-check me-2" style="color: var(--accent-green);"></i>Mortality Rates</li>
+                        <li class="mb-2"><i class="fa-solid fa-circle-check me-2" style="color: var(--accent-green);"></i>Recovery Percentages</li>
+                        <li class="mb-2"><i class="fa-solid fa-circle-check me-2" style="color: var(--accent-green);"></i>Daily Growth Trends</li>
+                        <li class="mb-2"><i class="fa-solid fa-circle-check me-2" style="color: var(--accent-green);"></i>Vaccination Coverage</li>
+                        <li class="mb-2"><i class="fa-solid fa-circle-check me-2" style="color: var(--accent-green);"></i>Sentiment Analysis</li>
+                    </ul>
+                </div>
             </div>
-            
+
             <!-- Features -->
             <div class="col-lg-6" data-aos="fade-left">
-                <h3 class="mb-4">Dashboard Features</h3>
-                <div class="row g-4">
-                    <div class="col-6 text-center">
-                        <div class="p-3 border rounded bg-light h-100">
-                            <i class="fa-solid fa-earth-americas feature-icon"></i>
-                            <h6>Interactive Maps</h6>
-                            <p class="small text-muted mb-0">Geographical distribution of cases</p>
+                <div class="chart-card h-100">
+                    <h3 style="color: var(--text-primary); font-weight: 700; font-size: 1.25rem; margin-bottom: 1rem;">
+                        <i class="fa-solid fa-star me-2" style="color: var(--accent-yellow);"></i>Dashboard Features
+                    </h3>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div style="background: rgba(79,142,247,0.08); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1rem; text-align: center; height: 100%;">
+                                <i class="fa-solid fa-earth-americas feature-icon" style="font-size: 1.8rem; color: var(--accent-blue); display: block; margin-bottom: 0.5rem;"></i>
+                                <h6 style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.25rem;">Interactive Maps</h6>
+                                <p style="color: var(--text-muted); font-size: 0.8rem; margin: 0;">Geographical distribution of cases</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-6 text-center">
-                        <div class="p-3 border rounded bg-light h-100">
-                            <i class="fa-solid fa-chart-line feature-icon"></i>
-                            <h6>Trend Metrics</h6>
-                            <p class="small text-muted mb-0">Time-series graphs showing waves</p>
+                        <div class="col-6">
+                            <div style="background: rgba(16,185,129,0.08); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1rem; text-align: center; height: 100%;">
+                                <i class="fa-solid fa-chart-line feature-icon" style="font-size: 1.8rem; color: var(--accent-green); display: block; margin-bottom: 0.5rem;"></i>
+                                <h6 style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.25rem;">Trend Metrics</h6>
+                                <p style="color: var(--text-muted); font-size: 0.8rem; margin: 0;">Time-series graphs showing waves</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-6 text-center">
-                        <div class="p-3 border rounded bg-light h-100">
-                            <i class="fa-solid fa-chart-bar feature-icon"></i>
-                            <h6>Comparative Updates</h6>
-                            <p class="small text-muted mb-0">Comparing recovery rates</p>
+                        <div class="col-6">
+                            <div style="background: rgba(245,158,11,0.08); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1rem; text-align: center; height: 100%;">
+                                <i class="fa-solid fa-chart-bar feature-icon" style="font-size: 1.8rem; color: var(--accent-yellow); display: block; margin-bottom: 0.5rem;"></i>
+                                <h6 style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.25rem;">State Comparison</h6>
+                                <p style="color: var(--text-muted); font-size: 0.8rem; margin: 0;">Comparing recovery rates by state</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-6 text-center">
-                        <div class="p-3 border rounded bg-light h-100">
-                            <i class="fa-solid fa-rotate feature-icon"></i>
-                            <h6>Real-Time</h6>
-                            <p class="small text-muted mb-0">Live API integration</p>
+                        <div class="col-6">
+                            <div style="background: rgba(167,139,250,0.08); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1rem; text-align: center; height: 100%;">
+                                <i class="fa-solid fa-wand-magic-sparkles feature-icon" style="font-size: 1.8rem; color: var(--accent-purple); display: block; margin-bottom: 0.5rem;"></i>
+                                <h6 style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.25rem;">AI Forecasting</h6>
+                                <p style="color: var(--text-muted); font-size: 0.8rem; margin: 0;">ARIMA &amp; Prophet predictions</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <footer class="text-center py-4 bg-light mt-auto">
-        <p class="mb-0 text-muted">
-            &copy; 2024 Covid-19 Dashboard. All rights reserved.
-            <br>
-            Data Source: Ministry of Health and Family Welfare, Government of India.</p>
+    </div><!-- /container-fluid -->
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 COVID-19 India Dashboard &mdash; All rights reserved.</p>
+        <p>Data Source: <a href="https://www.mohfw.gov.in/" target="_blank" rel="noopener">Ministry of Health &amp; Family Welfare, Government of India</a></p>
     </footer>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
     <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 1000,
-            once: true
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({ duration: 800, once: true, offset: 60 });
         });
     </script>
+
 </body>
 </html>

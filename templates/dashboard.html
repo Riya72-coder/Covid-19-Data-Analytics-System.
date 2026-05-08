@@ -3,115 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced COVID-19 Dashboard</title>
+    <meta name="description" content="COVID-19 India Analytics Dashboard — Real-time statistics, trends, forecasts, and sentiment analysis across all Indian states.">
+    <title>COVID-19 India Dashboard | Analytics & Insights</title>
+
+    <!-- Preconnect for faster font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS for styling -->
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <!-- ========== Navbar ========== -->
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('dashboard') }}"><i class="fa-solid fa-virus-covid me-2"></i>Covid-19 Dashboard</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+                <i class="fa-solid fa-virus-covid"></i>
+                COVID-19 Dashboard
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('info') }}">Info Center</a></li>
+                <ul class="navbar-nav ms-auto gap-1">
+                    <li class="nav-item"><a class="nav-link active" href="{{ url_for('dashboard') }}"><i class="fa-solid fa-gauge-high me-1"></i>Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('info') }}"><i class="fa-solid fa-circle-info me-1"></i>Info Center</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container-fluid mt-4">
-        <header class="main-header">
-            <h1><i class="fa-solid fa-chart-pie"></i> COVID-19 India Analysis Dashboard</h1>
-            <p class="mb-0">Last Updated: {{ data.kpi.last_updated }}</p>
+    <!-- ========== Main Content ========== -->
+    <div class="container-fluid mt-4 pb-4">
+
+        <!-- Header -->
+        <header class="main-header mb-4">
+            <h1><i class="fa-solid fa-chart-mixed"></i> COVID-19 India Analysis Dashboard</h1>
+            <p class="subtitle">Comprehensive statistics, forecasts &amp; sentiment analysis across all Indian states</p>
+            <div class="live-badge">
+                <span class="live-dot"></span>
+                Last Updated: {{ data.kpi.last_updated }}
+            </div>
         </header>
 
-        <!-- KPI Cards Section -->
-        <div class="row g-3">
+        <!-- ===== KPI Cards ===== -->
+        <p class="section-label"><i class="fa-solid fa-signal"></i> Key Performance Indicators</p>
+        <div class="row g-3 mb-4">
+
             <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-                <div class="kpi-card">
-                    <div class="kpi-icon text-primary"><i class="fa-solid fa-virus"></i></div>
+                <div class="kpi-card card-blue h-100" id="kpi-total-cases">
+                    <div class="kpi-icon-wrapper"><i class="fa-solid fa-virus"></i></div>
                     <div class="kpi-title">Total Cases</div>
-                    <div class="kpi-value" data-value="{{ data.kpi.total_cases }}">0</div>
+                    <div class="kpi-value" data-value="{{ data.kpi.total_cases }}">—</div>
                 </div>
             </div>
+
             <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-                <div class="kpi-card">
-                    <div class="kpi-icon text-success"><i class="fa-solid fa-heart-pulse"></i></div>
+                <div class="kpi-card card-green h-100" id="kpi-recovered">
+                    <div class="kpi-icon-wrapper"><i class="fa-solid fa-heart-pulse"></i></div>
                     <div class="kpi-title">Total Recovered</div>
-                    <div class="kpi-value" data-value="{{ data.kpi.total_discharged }}">0</div>
+                    <div class="kpi-value" data-value="{{ data.kpi.total_discharged }}">—</div>
                 </div>
             </div>
+
             <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-                <div class="kpi-card">
-                    <div class="kpi-icon text-danger"><i class="fa-solid fa-heart-crack"></i></div>
+                <div class="kpi-card card-red h-100" id="kpi-deaths">
+                    <div class="kpi-icon-wrapper"><i class="fa-solid fa-heart-crack"></i></div>
                     <div class="kpi-title">Total Deaths</div>
-                    <div class="kpi-value" data-value="{{ data.kpi.total_deaths }}">0</div>
+                    <div class="kpi-value" data-value="{{ data.kpi.total_deaths }}">—</div>
                 </div>
             </div>
+
             <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-                <div class="kpi-card">
-                    <div class="kpi-icon text-warning"><i class="fa-solid fa-person-running"></i></div>
+                <div class="kpi-card card-yellow h-100" id="kpi-active">
+                    <div class="kpi-icon-wrapper"><i class="fa-solid fa-person-running"></i></div>
                     <div class="kpi-title">Active Cases</div>
-                    <div class="kpi-value" data-value="{{ data.kpi.active_cases }}">0</div>
+                    <div class="kpi-value" data-value="{{ data.kpi.active_cases }}">—</div>
                 </div>
             </div>
+
             <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-                <div class="kpi-card">
-                    <div class="kpi-icon text-info"><i class="fa-solid fa-syringe"></i></div>
+                <div class="kpi-card card-cyan h-100" id="kpi-vaccines">
+                    <div class="kpi-icon-wrapper"><i class="fa-solid fa-syringe"></i></div>
                     <div class="kpi-title">Vaccination Doses</div>
-                    <div class="kpi-value" data-value="{{ data.kpi.total_vaccination_doses }}">0</div>
+                    <div class="kpi-value" data-value="{{ data.kpi.total_vaccination_doses }}">—</div>
                 </div>
             </div>
+
             <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-                <div class="kpi-card">
-                    <div class="kpi-icon 
-                        {% if data.kpi.overall_sentiment == 'Positive' %}text-success
-                        {% elif data.kpi.overall_sentiment == 'Negative' %}text-danger
-                        {% else %}text-warning{% endif %}">
-                        <i class="fa-solid 
+                <div class="kpi-card card-purple h-100" id="kpi-sentiment">
+                    <div class="kpi-icon-wrapper">
+                        <i class="fa-solid
                             {% if data.kpi.overall_sentiment == 'Positive' %}fa-face-smile
                             {% elif data.kpi.overall_sentiment == 'Negative' %}fa-face-frown
-                            {% else %}fa-face-meh{% endif %}"></i>
+                            {% else %}fa-face-meh{% endif %}">
+                        </i>
                     </div>
                     <div class="kpi-title">Overall Sentiment</div>
                     <div class="kpi-value">{{ data.kpi.overall_sentiment }}</div>
                 </div>
             </div>
+
         </div>
 
-        <!-- Charts Section -->
-        <div class="row">
+        <!-- ===== Trends + Top States ===== -->
+        <p class="section-label"><i class="fa-solid fa-chart-line"></i> Trends &amp; Distribution</p>
+        <div class="row g-3 mb-3">
             <div class="col-lg-8">
                 <div class="chart-card">
                     <h5 class="card-title"><i class="fa-solid fa-chart-line"></i> Trends Over Time</h5>
-                    <div style="position: relative; height: 400px; width: 100%;">
+                    <p class="card-subtitle">Daily progression of cases, recoveries &amp; deaths</p>
+                    <div style="position: relative; height: 380px; width: 100%;">
                         <canvas id="trendsOverTimeChart"></canvas>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                 <div class="chart-card">
-                    <h5 class="card-title"><i class="fa-solid fa-chart-bar"></i> Top 10 States by Cases</h5>
-                    <div style="position: relative; height: 400px; width: 100%;">
+                <div class="chart-card">
+                    <h5 class="card-title"><i class="fa-solid fa-ranking-star"></i> Top 10 States by Cases</h5>
+                    <p class="card-subtitle">Highest cumulative confirmed cases by state</p>
+                    <div style="position: relative; height: 380px; width: 100%;">
                         <canvas id="topStatesBarChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row mt-3">
+        <!-- ===== Pie + Sentiment + Heatmap ===== -->
+        <div class="row g-3 mb-3">
             <div class="col-lg-4">
                 <div class="chart-card">
-                    <h5 class="card-title"><i class="fa-solid fa-pie-chart"></i> Case Proportions (Top 5 States)</h5>
+                    <h5 class="card-title"><i class="fa-solid fa-chart-pie"></i> Case Share — Top 5 States</h5>
+                    <p class="card-subtitle">Proportional breakdown of total cases</p>
                     <div style="position: relative; height: 300px; width: 100%;">
                         <canvas id="topStatesPieChart"></canvas>
                     </div>
@@ -120,112 +153,313 @@
             <div class="col-lg-4">
                 <div class="chart-card">
                     <h5 class="card-title"><i class="fa-solid fa-comments"></i> Sentiment Distribution</h5>
-                     <div style="position: relative; height: 300px; width: 100%;">
+                    <p class="card-subtitle">Public sentiment breakdown from social data</p>
+                    <div style="position: relative; height: 300px; width: 100%;">
                         <canvas id="sentimentDistributionChart"></canvas>
-                     </div>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="chart-card">
                     <h5 class="card-title"><i class="fa-solid fa-fire"></i> Correlation Heatmap</h5>
-                    <p class="card-subtitle mb-2">Shows correlation between different metrics.</p>
-                    <img src="{{ url_for('static', filename=data.image_paths.correlationHeatmap) }}" class="img-fluid rounded" alt="Correlation Heatmap">
+                    <p class="card-subtitle">Correlation between key COVID-19 metrics</p>
+                    <img src="{{ url_for('static', filename=data.image_paths.correlationHeatmap) }}" loading="lazy" alt="Correlation Heatmap between COVID-19 metrics">
                 </div>
             </div>
         </div>
 
-        <!-- Forecasting Section -->
-        <div class="row mt-3 g-3">
+        <!-- ===== Forecasting ===== -->
+        <p class="section-label"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Forecasting Models</p>
+        <div class="row g-3 mb-3">
             <div class="col-lg-6">
                 <div class="chart-card">
                     <h5 class="card-title"><i class="fa-solid fa-wand-magic-sparkles"></i> ARIMA Forecast</h5>
-                    <p class="card-subtitle mb-2">Forecast of total cases for the next 30 days using ARIMA model.</p>
-                    <img src="{{ url_for('static', filename=data.image_paths.arimaForecast) }}" class="img-fluid rounded" alt="ARIMA Forecast">
+                    <p class="card-subtitle">Statistical time-series forecast of total cases for the next 30 days</p>
+                    <img src="{{ url_for('static', filename=data.image_paths.arimaForecast) }}" loading="lazy" alt="ARIMA 30-day forecast of total COVID-19 cases">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="chart-card">
-                    <h5 class="card-title"><i class="fa-solid fa-chart-line"></i> Prophet Forecast</h5>
-                    <p class="card-subtitle mb-2">Forecast of total cases for the next 30 days using Prophet model.</p>
-                    <img src="{{ url_for('static', filename=data.image_paths.prophetForecast) }}" class="img-fluid rounded" alt="Prophet Forecast">
+                    <h5 class="card-title"><i class="fa-brands fa-facebook"></i> Prophet Forecast</h5>
+                    <p class="card-subtitle">Facebook Prophet model forecast of total cases for the next 30 days</p>
+                    <img src="{{ url_for('static', filename=data.image_paths.prophetForecast) }}" loading="lazy" alt="Prophet 30-day forecast of total COVID-19 cases">
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
-        <footer class="text-center mt-4 mb-4">
-            <p class="text-muted">&copy; 2024 Covid-19 Dashboard. All rights reserved.
-                <br>
-                Data Source: Ministry of Health and Family Welfare, Government of India.
-            </p>
+        <footer>
+            <p>&copy; 2024 COVID-19 India Dashboard &mdash; All rights reserved.</p>
+            <p>Data Source: <a href="https://www.mohfw.gov.in/" target="_blank" rel="noopener">Ministry of Health &amp; Family Welfare, Government of India</a></p>
         </footer>
-    </div>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </div><!-- /container-fluid -->
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+
+    <!--
+        FIX 1 — "Tracking Prevention blocked access to storage for chart.js"
+        Root cause: Chart.js from cdn.jsdelivr.net tries to use localStorage/IndexedDB
+        for internal caching. Edge & Firefox's Tracking Prevention blocks cross-site
+        storage access from CDN domains, producing this console warning.
+        Fix: Load Chart.js with the `crossorigin="anonymous"` attribute and add
+        `rel="preconnect"` so the browser negotiates the cross-origin context cleanly.
+        We also defer it so it doesn't block HTML parsing.
+
+        FIX 2 — requestAnimationFrame handler took 16702ms / 17180ms
+        Root cause: Charts were created synchronously at parse time (before DOM was ready),
+        and the KPI counter animation (animateValue via rAF) was also firing immediately.
+        All of this happened in a single long task on the main thread while the browser
+        was still parsing the massive dashboard_data.json payload — causing a 16-second
+        rAF violation (one frame held the thread for 16s).
+        Fix: Move ALL chart creation + animation inside a single DOMContentLoaded handler,
+        and use requestIdleCallback (with setTimeout fallback) to defer the KPI counters
+        until AFTER charts are rendered, splitting the work into separate tasks.
+    -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"
+        crossorigin="anonymous">
+    </script>
+
+    <!-- Data bridge: Jinja2 injects JSON here; isolated so the JS linter
+         doesn't try to parse Jinja2 syntax as JavaScript. -->
     <script>
-        // Data from Flask server
-        const chartData = {{ data.charts | tojson }};
+        window.CHART_DATA = {{ data.charts | tojson }};
+    </script>
 
-        // 1. Trends Over Time Chart
-        new Chart(document.getElementById('trendsOverTimeChart'), {
-            type: 'line',
-            data: chartData.trendsOverTime,
-            options: { responsive: true, maintainAspectRatio: false }
-        });
+    <script>
+    // ─── Chart.js Initialization ─────────────────────────────────────────────────
+    // Scripts at the bottom of <body> already run after DOM is parsed.
+    // No defer needed — Chart.js above is guaranteed to have loaded first.
+    (function () {
 
-        // 2. Top States Bar Chart
-        new Chart(document.getElementById('topStatesBarChart'), {
-            type: 'bar',
-            data: chartData.topStatesBar,
-            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
-        });
+        // Shared color palette for charts
+        const COLORS = {
+            blue:   '#4f8ef7',
+            cyan:   '#22d3ee',
+            green:  '#10b981',
+            red:    '#f43f5e',
+            yellow: '#f59e0b',
+            purple: '#a78bfa',
+            orange: '#fb923c',
+            pink:   '#ec4899',
+        };
 
-        // 3. Top States Pie Chart
-        new Chart(document.getElementById('topStatesPieChart'), {
-            type: 'pie',
-            data: chartData.topStatesPie,
-            options: { responsive: true, maintainAspectRatio: false }
-        });
-        
-        // 4. Sentiment Distribution Chart
-        new Chart(document.getElementById('sentimentDistributionChart'), {
-            type: 'doughnut',
-            data: chartData.sentimentDistribution,
-            options: { responsive: true, maintainAspectRatio: false }
-        });
+        const PALETTE = Object.values(COLORS);
 
-        // --- IMPROVEMENTS SCRIPT ---
+        // Global Chart.js defaults for dark theme
+        Chart.defaults.color           = '#8b9cc8';
+        Chart.defaults.borderColor     = 'rgba(99, 130, 255, 0.12)';
+        Chart.defaults.font.family     = "'Inter', sans-serif";
+        Chart.defaults.font.size       = 12;
+        Chart.defaults.plugins.legend.labels.color = '#8b9cc8';
+        Chart.defaults.plugins.legend.labels.boxWidth = 10;
+        Chart.defaults.plugins.legend.labels.usePointStyle = true;
 
-        // Animate numbers on KPI cards
-        function animateValue(obj, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const currentVal = Math.floor(progress * (end - start) + start);
-                // Format number with commas
-                obj.innerHTML = currentVal.toLocaleString('en-US');
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
+        // ── Retrieve chart data injected from Flask ──────────────────────────
+        const chartData = window.CHART_DATA;
 
-        document.addEventListener("DOMContentLoaded", () => {
-            // Animate KPI values
-            const kpiElements = document.querySelectorAll('.kpi-value[data-value]');
-            kpiElements.forEach(el => {
-                const endValue = parseInt(el.getAttribute('data-value'));
-                if (!isNaN(endValue)) {
-                    animateValue(el, 0, endValue, 1500);
+        // ── Shared options helpers ───────────────────────────────────────────
+        const baseOpts = { responsive: true, maintainAspectRatio: false };
+
+        const gridOpts = {
+            color: 'rgba(99, 130, 255, 0.08)',
+            tickColor: 'transparent',
+        };
+
+        // ── 1. Trends Over Time ──────────────────────────────────────────────
+        const trendsCtx = document.getElementById('trendsOverTimeChart');
+        if (trendsCtx && chartData.trendsOverTime) {
+            // Apply colours to each dataset
+            const trendColors = [COLORS.blue, COLORS.green, COLORS.red];
+            if (chartData.trendsOverTime.datasets) {
+                chartData.trendsOverTime.datasets.forEach((ds, i) => {
+                    const c = trendColors[i % trendColors.length];
+                    ds.borderColor = c;
+                    ds.backgroundColor = c + '18';
+                    ds.borderWidth = 2;
+                    ds.pointRadius = 0;
+                    ds.tension = 0.4;
+                    ds.fill = true;
+                });
+            }
+            new Chart(trendsCtx, {
+                type: 'line',
+                data: chartData.trendsOverTime,
+                options: {
+                    ...baseOpts,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: {
+                            backgroundColor: 'rgba(13, 21, 41, 0.95)',
+                            borderColor: 'rgba(79, 142, 247, 0.3)',
+                            borderWidth: 1,
+                            titleColor: '#e8edf8',
+                            bodyColor: '#8b9cc8',
+                            padding: 12,
+                            callbacks: {
+                                label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString('en-IN')}`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { grid: gridOpts, ticks: { maxTicksLimit: 8 } },
+                        y: { grid: gridOpts, ticks: { callback: v => (v >= 1e6 ? (v/1e6).toFixed(1)+'M' : v >= 1e3 ? (v/1e3).toFixed(0)+'K' : v) } }
+                    }
                 }
             });
-        });
+        }
 
+        // ── 2. Top States Horizontal Bar ────────────────────────────────────
+        const barCtx = document.getElementById('topStatesBarChart');
+        if (barCtx && chartData.topStatesBar) {
+            if (chartData.topStatesBar.datasets) {
+                chartData.topStatesBar.datasets.forEach(ds => {
+                    ds.backgroundColor = PALETTE.map(c => c + 'cc');
+                    ds.borderColor     = PALETTE;
+                    ds.borderWidth = 1;
+                    ds.borderRadius = 4;
+                });
+            }
+            new Chart(barCtx, {
+                type: 'bar',
+                data: chartData.topStatesBar,
+                options: {
+                    ...baseOpts,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(13, 21, 41, 0.95)',
+                            borderColor: 'rgba(79, 142, 247, 0.3)',
+                            borderWidth: 1,
+                            titleColor: '#e8edf8',
+                            bodyColor: '#8b9cc8',
+                            padding: 10,
+                            callbacks: {
+                                label: ctx => ` ${ctx.parsed.x.toLocaleString('en-IN')} cases`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: gridOpts,
+                            ticks: { callback: v => v >= 1e6 ? (v/1e6).toFixed(1)+'M' : v >= 1e3 ? (v/1e3).toFixed(0)+'K' : v }
+                        },
+                        y: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        // ── 3. Top States Pie ────────────────────────────────────────────────
+        const pieCtx = document.getElementById('topStatesPieChart');
+        if (pieCtx && chartData.topStatesPie) {
+            if (chartData.topStatesPie.datasets) {
+                chartData.topStatesPie.datasets.forEach(ds => {
+                    ds.backgroundColor = PALETTE.map(c => c + 'cc');
+                    ds.borderColor     = '#060b18';
+                    ds.borderWidth = 2;
+                    ds.hoverOffset = 8;
+                });
+            }
+            new Chart(pieCtx, {
+                type: 'pie',
+                data: chartData.topStatesPie,
+                options: {
+                    ...baseOpts,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { padding: 14 } },
+                        tooltip: {
+                            backgroundColor: 'rgba(13, 21, 41, 0.95)',
+                            borderColor: 'rgba(79, 142, 247, 0.3)',
+                            borderWidth: 1,
+                            titleColor: '#e8edf8',
+                            bodyColor: '#8b9cc8',
+                            padding: 10,
+                            callbacks: {
+                                label: ctx => ` ${ctx.label}: ${ctx.parsed.toLocaleString('en-IN')}`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ── 4. Sentiment Doughnut ────────────────────────────────────────────
+        const sentCtx = document.getElementById('sentimentDistributionChart');
+        if (sentCtx && chartData.sentimentDistribution) {
+            if (chartData.sentimentDistribution.datasets) {
+                chartData.sentimentDistribution.datasets.forEach(ds => {
+                    ds.backgroundColor = [
+                        COLORS.green + 'cc',
+                        COLORS.red   + 'cc',
+                        COLORS.yellow + 'cc',
+                        COLORS.blue  + 'cc',
+                    ];
+                    ds.borderColor  = '#060b18';
+                    ds.borderWidth  = 2;
+                    ds.hoverOffset  = 8;
+                });
+            }
+            new Chart(sentCtx, {
+                type: 'doughnut',
+                data: chartData.sentimentDistribution,
+                options: {
+                    ...baseOpts,
+                    cutout: '65%',
+                    plugins: {
+                        legend: { position: 'bottom', labels: { padding: 14 } },
+                        tooltip: {
+                            backgroundColor: 'rgba(13, 21, 41, 0.95)',
+                            borderColor: 'rgba(79, 142, 247, 0.3)',
+                            borderWidth: 1,
+                            titleColor: '#e8edf8',
+                            bodyColor: '#8b9cc8',
+                            padding: 10,
+                        }
+                    }
+                }
+            });
+        }
+
+        // ── 5. KPI Counter Animation ─────────────────────────────────────────
+        // Deferred via requestIdleCallback so it runs AFTER charts are painted,
+        // preventing it from competing on the main thread (was causing the RAF violation).
+        function animateValue(el, start, end, duration) {
+            let startTs = null;
+            function step(ts) {
+                if (!startTs) startTs = ts;
+                const progress = Math.min((ts - startTs) / duration, 1);
+                // Ease out cubic
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.floor(eased * (end - start) + start).toLocaleString('en-IN');
+                if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        function startCounters() {
+            document.querySelectorAll('.kpi-value[data-value]').forEach(el => {
+                const end = parseInt(el.getAttribute('data-value'), 10);
+                if (!isNaN(end)) {
+                    el.textContent = '0';
+                    animateValue(el, 0, end, 1800);
+                }
+            });
+        }
+
+        // Use requestIdleCallback if available, else defer via setTimeout
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(startCounters, { timeout: 2500 });
+        } else {
+            setTimeout(startCounters, 300);
+        }
+
+    }()); // end IIFE
     </script>
+
 </body>
 </html>

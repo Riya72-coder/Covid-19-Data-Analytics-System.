@@ -49,12 +49,18 @@ This project is a COVID-19 Data analytics system that provides insights into the
    pip install -r requirements.txt
    ```
 
-4. **Download the Datasets**
-   Due to GitHub's file size limits, the large datasets are not included in this repository. Please download them from their original sources on Kaggle:
+4. **Dataset & Optimization**
+   This project utilizes COVID-19 datasets sourced from Kaggle, covering sentiments, vaccination rates, and daily case statuses.
 
-   *   **Sentiment Data:** (https://www.kaggle.com/datasets/abhaydhiman/covid19-sentiments) (Rename downloaded file to `COVID-19_Sentiments.csv`)
-   *   **Main Analysis Data:** (https://www.kaggle.com/datasets/akcoguz/outputcsb) (Rename downloaded file to `output.csv`)
-   *   **Vaccination Data:** https://www.kaggle.com/datasets/joebeachcapital/india-covid-vaccination-by-state-2023(Rename downloaded file to `IndiaCovidVaccination2023.csv`)
+   Note on Performance: To ensure high-speed loading and compatibility with serverless deployment (Vercel), the raw datasets have been pre-processed and optimized. Unused features were pruned to reduce the application footprint while maintaining full analytical integrity.
+
+   **Main Dataset:** data/output.csv (Optimized)
+
+   **Sentiment Data:** data/COVID-19_Sentiments.csv (Optimized)
+
+   **Vaccination Data:** data/IndiaCovidVaccination2023.csv (Optimized)
+
+   All necessary data is included in the repository; no external downloads are required to run the dashboard locally.
 
    **Action:** Place these CSV files inside the `data/` folder of this project.
 
